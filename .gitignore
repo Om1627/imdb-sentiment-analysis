@@ -2,7 +2,7 @@
 .venv/
 venv/
 env/
-distilbert_imdb_results/
+roberta_irony_imdb_results/
 checkpoint-*/
 
 # Python artifacts
@@ -11,7 +11,7 @@ __pycache__/
 *.class
 
 # Local weights (already on Hugging Face)
-my_imdb_model/
+my_imdb_sarcasm_model/
 
 # OS files
 .DS_Store
