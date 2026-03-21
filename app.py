@@ -70,62 +70,6 @@ def compute_real_cm(num_samples=1000, batch_size=32):
     return cm, accuracy, num_samples
 
 # ─────────────────────────────────────────────
-# 4. SIDEBAR — REAL MODEL STATS
-# ─────────────────────────────────────────────
-st.sidebar.title("📊 Real Model Performance")
-
-with st.sidebar:
-    with st.spinner("Running model on test set... (runs once)"):
-        cm, accuracy, n = compute_real_cm(num_samples=1000)
-
-    tn, fp, fn, tp = cm.ravel()
-
-    # Metrics derived from real CM
-    precision = tp / (tp + fp) if (tp + fp) > 0 else 0
-    recall    = tp / (tp + fn) if (tp + fn) > 0 else 0
-    f1        = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
-
-    st.info(f"Stats from {n} real IMDB test reviews")
-
-    # Real metrics
-    col1, col2 = st.columns(2)
-    col1.metric("Accuracy", f"{accuracy:.2%}")
-    col2.metric("F1 Score", f"{f1:.2%}")
-    col1.metric("Precision", f"{precision:.2%}")
-    col2.metric("Recall", f"{recall:.2%}")
-
-    # Real confusion matrix heatmap
-    st.markdown("#### Confusion Matrix")
-
-    def plot_cm(data):
-        fig, ax = plt.subplots(figsize=(5, 4))
-        sns.heatmap(
-            data,
-            annot         = True,
-            fmt           = "d",
-            cmap          = "Blues",
-            xticklabels   = ["Pred Neg", "Pred Pos"],
-            yticklabels   = ["Actual Neg", "Actual Pos"],
-            ax            = ax,
-        )
-        plt.tight_layout()
-        return fig
-
-    st.pyplot(plot_cm(cm))
-
-    # Sarcasm error rate — FP rate is the key signal
-    # False Positives = sarcastic negatives predicted as positive
-    fp_rate = fp / (fp + tn) if (fp + tn) > 0 else 0
-
-    st.write(f"""
-**What this means:**
-- ✅ Correctly caught Negative: **{tn}**
-- ✅ Correctly caught Positive: **{tp}**
-- 🎭 Fooled by Sarcasm (FP): **{fp}** ({fp_rate:.1%} of negatives)
-- ❌ Missed Positives (FN): **{fn}**
-""")
-
-# ─────────────────────────────────────────────
 # 5. USER INPUT & INFERENCE
 # ─────────────────────────────────────────────
 user_input = st.text_area(
