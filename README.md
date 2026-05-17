@@ -1,6 +1,6 @@
 # RoBERTa Sentiment Classifier — IMDB Fine-Tuning
 
-Fine-tuning `roberta-base` on the IMDB 50K Movie Reviews dataset for binary sentiment classification (positive / negative). Achieves strong accuracy with a clean, reproducible pipeline built on 🤗 Transformers.
+Fine-tuning `roberta-base` on the IMDB 50K Movie Reviews dataset for binary sentiment classification (positive / negative). Achieves strong accuracy with a clean, reproducible pipeline built on Transformers.
 
 ---
 
