@@ -1,4 +1,4 @@
-#  RoBERTa Sentiment Classifier — IMDB Fine-Tuning
+# RoBERTa Sentiment Classifier — IMDB Fine-Tuning
 
 Fine-tuning `roberta-base` on the IMDB 50K Movie Reviews dataset for binary sentiment classification (positive / negative). Achieves strong accuracy with a clean, reproducible pipeline built on 🤗 Transformers.
 
@@ -11,6 +11,7 @@ Fine-tuning `roberta-base` on the IMDB 50K Movie Reviews dataset for binary sent
 - [Model & Architecture](#model--architecture)
 - [Training Strategy](#training-strategy)
 - [Results](#results)
+- [Streamlit App](#streamlit-app)
 - [Project Structure](#project-structure)
 
 ---
@@ -82,7 +83,39 @@ optimizer_grouped_parameters = [
 
 ## Results
 
-The model is evaluated after each epoch with accuracy, a confusion matrix, and a full per-class classification report printed to stdout. Expected final test accuracy on IMDB with this setup is in the range of **~94–95%**, consistent with published benchmarks for `roberta-base` on this dataset.
+The model is evaluated after each epoch with accuracy, a confusion matrix, and a full per-class classification report printed to stdout.
+
+### Confusion Matrix (Test Set — 10,000 samples)
+
+|  | Pred Neg | Pred Pos |
+|---|---|---|
+| **Actual Neg** | 4797 | 268 |
+| **Actual Pos** | 211 | 4724 |
+
+- **True Negatives:** 4797 — correctly predicted negative reviews
+- **True Positives:** 4724 — correctly predicted positive reviews
+- **False Positives:** 268 — negative reviews wrongly predicted as positive
+- **False Negatives:** 211 — positive reviews wrongly predicted as negative
+
+### Per-Class Classification Report
+
+| Class | Precision | Recall | F1-Score | Support |
+|-------|-----------|--------|----------|---------|
+| Negative | 0.96 | 0.95 | 0.95 | 5065 |
+| Positive | 0.95 | 0.96 | 0.95 | 4935 |
+| **Accuracy** | | | **0.95** | 10000 |
+| Macro Avg | 0.95 | 0.95 | 0.95 | 10000 |
+| Weighted Avg | 0.95 | 0.95 | 0.95 | 10000 |
+
+---
+
+## 🚀 Streamlit App
+
+A live demo of the model is deployed and accessible here:
+
+🔗 **[https://imdb-sentiment-analysis-a8dsrstq7so3uqtxcm6w69.streamlit.app/](https://imdb-sentiment-analysis-a8dsrstq7so3uqtxcm6w69.streamlit.app/)**
+
+Paste any movie review into the app and get an instant positive/negative sentiment prediction from the fine-tuned RoBERTa model.
 
 ---
 
